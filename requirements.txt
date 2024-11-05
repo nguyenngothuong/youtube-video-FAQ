@@ -1,0 +1,8 @@
+yt-dlp
+youtube-transcript-api
+tqdm
+colorama
+streamlit
+supabase
+python-dotenv
+streamlit-authenticator 
