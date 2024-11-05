@@ -38,7 +38,13 @@ class SupabaseAuth:
             })
             return True, "Đăng ký thành công! Vui lòng kiểm tra email để kích hoạt tài khoản."
         except Exception as e:
-            return False, f"Lỗi đăng ký: {str(e)}"
+            error_message = str(e)
+            if "not authorized" in error_message.lower():
+                return False, "Email này không được phép đăng ký. Vui lòng liên hệ admin hoặc sử dụng email khác."
+            elif "already registered" in error_message.lower():
+                return False, "Email này đã được đăng ký. Vui lòng sử dụng email khác hoặc đăng nhập."
+            else:
+                return False, f"Lỗi đăng ký: {error_message}"
 
     def sign_in(self, email: str, password: str) -> tuple[bool, str]:
         """Đăng nhập"""
